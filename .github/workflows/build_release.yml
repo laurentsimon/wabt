@@ -80,12 +80,12 @@ jobs:
     - name: Generate SLSA subjects - Macos
       id: hash-macos
       if: matrix.os == 'macos-12'
-      run: echo "::set-output name=digests::$(sha256sum ${{ steps.archive.outputs.tarball }} | base64 -w0)"
+      run: echo "::set-output name=digests::$(shasum -a 256 ${{ steps.archive.outputs.tarball }} | base64)"
 
     - name: Generate SLSA subjects - Linux
       id: hash-linux
       if: matrix.os == 'ubuntu-latest'
-      run: echo "::set-output name=digests::$(shasum -a 256 ${{ steps.archive.outputs.tarball }} | base64)"
+      run: echo "::set-output name=digests::$(sha256sum ${{ steps.archive.outputs.tarball }} | base64 -w0)"
 
     # - name: Generate SLSA subjects - Windows
     #   id: hash-windows
